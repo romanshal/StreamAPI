@@ -37,7 +37,7 @@ public class DefaultStream implements Operation<UserBase> {
     public Collection<UserBase> getTwoUsersStartingFromSecond(Collection<UserBase> entities) {
         return entities.stream()
                 .skip(1)
-                .limit(1)
+                .limit(2)
                 .collect(Collectors.toList())
                 ;
     }
