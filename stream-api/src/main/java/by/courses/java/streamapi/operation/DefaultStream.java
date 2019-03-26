@@ -11,8 +11,8 @@ public class DefaultStream implements Operation<UserBase> {
     @Override
     public Collection<UserBase> removeWithMaxAge(Collection<UserBase> entities) {
         return entities.stream()
-        .filter(u ->
-                u.getAge() < entities.stream()
+        .filter(user ->
+                user.getAge() < entities.stream()
                 .mapToDouble(UserBase::getAge)
                 .max().orElse(Double.MAX_VALUE))
                 .collect(Collectors.toList());
@@ -21,7 +21,7 @@ public class DefaultStream implements Operation<UserBase> {
     @Override
     public Collection<UserBase> removeAllOlder(Collection<UserBase> entities, int age) {
         return entities.stream()
-                .filter(user->user.getAge()>=age)
+                .filter(user->user.getAge()<=age)
                 .collect(Collectors.toList())
                 ;
     }
@@ -51,7 +51,7 @@ public class DefaultStream implements Operation<UserBase> {
     @Override
     public boolean isCharacterPresentInAllNames(Collection<UserBase> entities, String character) {
         if (entities.stream()
-                .allMatch(user->user.getName().contains(character)))
+                .allMatch(user->user.getName().toUpperCase().contains(character.toUpperCase())))
             return true;
         else return false;
     }
@@ -66,8 +66,7 @@ public class DefaultStream implements Operation<UserBase> {
     @Override
     public Collection<UserBase> sortByNameThanByAge(Collection<UserBase> entities) {
         return entities.stream()
-                .sorted(Comparator.comparing(UserBase::getName))
-                .sorted(Comparator.comparing(user->user.getAge()))
+                .sorted(Comparator.comparing(UserBase::getName).thenComparing(UserBase::getAge))
                 .collect(Collectors.toList());
     }
 }
