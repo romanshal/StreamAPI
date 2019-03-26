@@ -24,8 +24,7 @@ public class DefaultStream implements Operation<UserBase> {
     @Override
     public double getAverageAge(Collection<UserBase> entities) {
         return entities.stream()
-                .collect(Collectors.averagingDouble(UserBase::getAge))
-                ;
+                .collect(Collectors.averagingDouble(user->user.getAge()));
     }
 
     @Override
@@ -38,8 +37,7 @@ public class DefaultStream implements Operation<UserBase> {
         return entities.stream()
                 .skip(1)
                 .limit(2)
-                .collect(Collectors.toList())
-                ;
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -54,6 +52,9 @@ public class DefaultStream implements Operation<UserBase> {
 
     @Override
     public Collection<UserBase> sortByNameThanByAge(Collection<UserBase> entities) {
-        return null;
+        return entities.stream()
+                .sorted(Comparator.comparing(UserBase::getName))
+                .sorted(Comparator.comparing(user->user.getAge()))
+                .collect(Collectors.toList());
     }
 }
