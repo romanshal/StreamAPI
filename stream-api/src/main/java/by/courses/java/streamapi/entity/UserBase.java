@@ -11,6 +11,16 @@ public class UserBase {
 
     private int age;
 
+    public UserBase(String name,int age) {
+        this.name = name;
+        this.age=age;
+    }
+
+    public static UserBase of(String name, int age) {
+        UserBase user=new UserBase(name,age);
+        return user;
+    }
+
     public String getName() {
         return name;
     }
