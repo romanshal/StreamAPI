@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor(staticName = "of")
+//@AllArgsConstructor(staticName = "of")
 public class UserBase {
 
     private String name;
